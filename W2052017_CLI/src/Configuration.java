@@ -1,4 +1,10 @@
-import java.util.Scanner;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
+
+//import java.io.FileReader;
+//import java.io.FileWriter;
+//import java.io.IOException;
+
 
 public class Configuration {
     private int totalTickets;
@@ -28,7 +34,10 @@ public class Configuration {
 
     @Override
         public String toString(){
-            return "Configuration:- "+ "Total Tickets: "+ ", Release rate: "+ ", Retrieval rate: "+ ", Maximum Capacity: ";
+            return ("Configuration } "+ "Total Tickets: "+ totalTickets+
+                    " Release rate: "+ticketReleaseRate+
+                    " Retrieval rate: "+customerRetrievalRate+
+                    " Maximum Capacity: " +maxTicketCapacity);
     }
 
 

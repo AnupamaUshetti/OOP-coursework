@@ -1,22 +1,31 @@
 public class Vendor implements Runnable{
-    private TicketPool ticketpool;
+    private TicketPool ticketPool;
     private int ticketReleaseRate;
-    //private int totalTickets;
 
-    public Vendor(TicketPool ticketpool, int ticketReleaseRate, int totalTickets){
-        this.ticketpool = ticketpool;
+    public Vendor(TicketPool ticketPool, int ticketReleaseRate){
+        this.ticketPool = ticketPool;
         this.ticketReleaseRate = ticketReleaseRate;
-        //this.totalTickets = totalTickets;
-
     }
 
 
     @Override
-    public void run(){
-        for (int i = 1; i<totalTickets; i++){
-            Ticket ticket =
-        }
+    public void run() {
+        while (true) {
+            ticketPool.addTickets(ticketReleaseRate);
 
+            // Stop the vendor thread if all tickets are sold
+            if (ticketPool.getTicketCount() == 0) {
+                System.out.println("All tickets added to the Ticket pool.(Vendor thread stopping!)");
+                break;
+            }
+
+            try {
+                Thread.sleep(1500); // Simulate some delay in adding tickets
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
     }
 
 }
