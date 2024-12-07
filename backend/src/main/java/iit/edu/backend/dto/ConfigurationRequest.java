@@ -1,22 +1,27 @@
 package iit.edu.backend.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 
 public class ConfigurationRequest {
 
     @NotNull(message = "Total tickets cannot be null.")
     @Min(value = 1, message = "Total tickets must be greater than 0.")
-    private int totalTickets;
+    private Integer totalTickets;
 
+    @NotNull(message = "Ticket release rate cannot be null.")
     @Min(value = 1, message = "Ticket release rate must be greater than 0.")
-    private int ticketReleaseRate;
+    private Integer ticketReleaseRate;
 
+    @NotNull(message = "Customer retrieval rate cannot be null.")
     @Min(value = 1, message = "Customer retrieval rate must be greater than 0.")
-    private int customerRetrievalRate;
+    private Integer customerRetrievalRate;
 
+
+    @NotNull(message = "Max ticket capacity cannot be null.")
     @Min(value = 1, message = "Max ticket capacity must be greater than 0.")
-    private int maxTicketCapacity;
+    private Integer maxTicketCapacity;
 
     // Default constructor
     public ConfigurationRequest() {}

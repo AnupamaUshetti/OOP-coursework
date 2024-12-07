@@ -15,6 +15,11 @@ public class TicketPool {
         this.maxTicketCapacity = maxTicketCapacity;
     }
 
+    public synchronized boolean isFull() {
+        return currentCount >= maxTicketCapacity;
+    }
+
+
     // Methods: addTickets(), removeTickets() (Same as in your CLI logic)
     public synchronized void addTickets(int ticketReleaseRate){
         while(currentCount==maxTicketCapacity){
@@ -53,6 +58,9 @@ public class TicketPool {
         notifyAll(); //notify customers
     }
 
+    public synchronized int getRemainingTicketsToAdd() {
+        return ticketCount;
+    }
 
     public synchronized void removeTickets(int customerRetrievalRate) {
         while (currentCount < customerRetrievalRate) {
@@ -78,6 +86,13 @@ public class TicketPool {
 
         notifyAll(); // Notify any waiting vendors
     }
+    public synchronized boolean isEmpty() {
+        return currentCount == 0 && ticketCount == 0;
+    }
+
+    public synchronized int getCurrentCount() {
+        return currentCount;
+    }
 
 }
-}
+

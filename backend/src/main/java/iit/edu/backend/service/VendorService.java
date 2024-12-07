@@ -15,21 +15,36 @@ public class VendorService implements Runnable {
     @Override
     public void run() {
         while (true) {
-            ticketPool.addTickets(ticketReleaseRate);
+            synchronized (ticketPool) {
+                // Pause if the ticket pool is full
+                while (ticketPool.isFull()) {
+                    try {
+                        ticketPool.wait(); // Wait for customers to buy tickets
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return; // Exit the thread
+                    }
+                }
 
-            // Stop the vendor thread if all tickets are sold
-            if (ticketPool.getTicketCount() == 0) {
-                System.out.println("All tickets added to the Ticket pool.(Vendor thread stopping!)");
-                break;
+                // Add tickets to the pool
+                ticketPool.addTickets(ticketReleaseRate);
+                System.out.println("Tickets added: " + ticketReleaseRate);
+
+                // Stop if all tickets have been added
+                if (ticketPool.getRemainingTicketsToAdd() <= 0) {
+                    System.out.println("All tickets added to the Ticket pool. (Vendor thread stopping!)");
+                    return;
+                }
+
+                ticketPool.notifyAll(); // Notify waiting threads
             }
 
             try {
-                Thread.sleep(1500); // Simulate some delay in adding tickets
+                Thread.sleep(1500); // Simulate delay
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
             }
         }
-
     }
 }
