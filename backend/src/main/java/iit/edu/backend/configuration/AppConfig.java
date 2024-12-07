@@ -1,6 +1,6 @@
 package iit.edu.backend.configuration;
 
-import com.example.ticketingsystem.model.TicketPool;
+import iit.edu.backend.model.TicketPool;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
