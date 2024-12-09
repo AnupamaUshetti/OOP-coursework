@@ -1,40 +1,25 @@
 import React from 'react';
+import './ControlPanelStyles.css'; 
 
-const ControlPanel = ({ onStart, onStop }) => {
+const ControlPanel = ({ onStart, onStop, isRunning }) => {
   return (
-    <div style={panelStyle}>
-      <h2>Control Panel</h2>
-      <button onClick={onStart} style={buttonStyle}>
+    <div className="control-panel">
+      <button 
+        className="button" 
+        onClick={onStart} 
+        disabled={isRunning}
+      >
         Start
       </button>
-      <button onClick={onStop} style={buttonStyle}>
+      <button 
+        className="button" 
+        onClick={onStop} 
+        disabled={isRunning}
+      >
         Stop
       </button>
     </div>
   );
-};
-
-// Inline styles
-const panelStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '10px',
-  margin: '20px auto',
-  padding: '20px',
-  width: '200px',
-  border: '1px solid #ccc',
-  borderRadius: '8px',
-  backgroundColor: '#f1f1f1',
-};
-
-const buttonStyle = {
-  padding: '10px 20px',
-  backgroundColor: '#28a745',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '4px',
-  cursor: 'pointer',
 };
 
 export default ControlPanel;

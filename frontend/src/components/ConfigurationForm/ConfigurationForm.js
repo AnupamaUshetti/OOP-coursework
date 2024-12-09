@@ -1,122 +1,75 @@
 import React, { useState } from 'react';
+import './ConfigurationStyles.css'; // Import the CSS file
 
 const ConfigurationForm = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({
+  // State for input fields
+  const [config, setConfig] = useState({
     totalTickets: '',
     ticketReleaseRate: '',
     customerRetrievalRate: '',
     maxTicketCapacity: '',
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setConfig({ ...config, [name]: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit(formData);
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(config); // Pass configuration to the parent component
   };
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
-      <h2 style={headerStyle}>Configuration Settings</h2>
-
-      <div style={inputGroupStyle}>
-        <label htmlFor="totalTickets" style={labelStyle}>Total Tickets:</label>
+    <form onSubmit={handleSubmit} className="configuration-form">
+      <h2>Configuration Settings</h2>
+      <label>
+        Total Tickets Amount:
         <input
           type="number"
-          id="totalTickets"
           name="totalTickets"
-          value={formData.totalTickets}
+          value={config.totalTickets}
           onChange={handleChange}
-          style={inputStyle}
+          required
         />
-      </div>
-
-      <div style={inputGroupStyle}>
-        <label htmlFor="ticketReleaseRate" style={labelStyle}>Ticket Release Rate:</label>
+      </label>
+      <label>
+        Ticket Release Rate:
         <input
           type="number"
-          id="ticketReleaseRate"
           name="ticketReleaseRate"
-          value={formData.ticketReleaseRate}
+          value={config.ticketReleaseRate}
           onChange={handleChange}
-          style={inputStyle}
+          required
         />
-      </div>
-
-      <div style={inputGroupStyle}>
-        <label htmlFor="customerRetrievalRate" style={labelStyle}>Customer Retrieval Rate:</label>
+      </label>
+      <label>
+        Customer Retrieval Rate:
         <input
           type="number"
-          id="customerRetrievalRate"
           name="customerRetrievalRate"
-          value={formData.customerRetrievalRate}
+          value={config.customerRetrievalRate}
           onChange={handleChange}
-          style={inputStyle}
+          required
         />
-      </div>
-
-      <div style={inputGroupStyle}>
-        <label htmlFor="maxTicketCapacity" style={labelStyle}>Max Ticket Capacity:</label>
+      </label>
+      <label>
+        Max Ticket Capacity:
         <input
           type="number"
-          id="maxTicketCapacity"
           name="maxTicketCapacity"
-          value={formData.maxTicketCapacity}
+          value={config.maxTicketCapacity}
           onChange={handleChange}
-          style={inputStyle}
+          required
         />
-      </div>
-
-      <button type="submit" style={buttonStyle}>Submit</button>
+      </label>
+      <button type="configure">Configure</button>
     </form>
   );
 };
 
-// Styling
-const formStyle = {
-  margin: '0 auto',
-  padding: '20px',
-  maxWidth: '400px',
-  border: '1px solid #ccc',
-  borderRadius: '8px',
-  backgroundColor: '#f9f9f9',
-  textAlign: 'center',
-};
-
-const headerStyle = {
-  marginBottom: '20px',
-};
-
-const inputGroupStyle = {
-  marginBottom: '15px',
-  textAlign: 'left',
-};
-
-const labelStyle = {
-  display: 'block', // Ensures the label is on top of the input field
-  marginBottom: '5px',
-};
-
-const inputStyle = {
-  width: '100%',
-  padding: '8px',
-  fontSize: '14px',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-};
-
-const buttonStyle = {
-  backgroundColor: '#007bff',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '4px',
-  padding: '10px 20px',
-  fontSize: '16px',
-  cursor: 'pointer',
-};
-
 export default ConfigurationForm;
+
 

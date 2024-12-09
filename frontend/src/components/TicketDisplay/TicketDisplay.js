@@ -1,34 +1,20 @@
 import React from 'react';
+import './TicketDisplayStyles.css'; // Import the CSS file
 
 const TicketDisplay = ({ totalTickets, remainingTickets }) => {
   return (
-    <div style={containerStyle}>
+    <div className="ticket-display">
       <h2>Ticket Status</h2>
-      <p style={ticketInfoStyle}>
+      <p className="ticket-info">
         <strong>Total Tickets:</strong> {totalTickets !== null ? totalTickets : 'Not Configured'}
       </p>
-      <p style={ticketInfoStyle}>
+      <p className="ticket-info">
         <strong>Remaining Tickets:</strong> {remainingTickets !== null ? remainingTickets : 'Not Available'}
       </p>
     </div>
   );
 };
 
-// Inline styles
-const containerStyle = {
-  margin: '20px auto',
-  padding: '20px',
-  width: '300px',
-  border: '1px solid #ccc',
-  borderRadius: '8px',
-  backgroundColor: '#f9f9f9',
-  textAlign: 'center',
-};
-
-const ticketInfoStyle = {
-  margin: '10px 0',
-  fontSize: '16px',
-};
-
 export default TicketDisplay;
+
 
