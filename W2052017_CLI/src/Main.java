@@ -5,30 +5,52 @@ public class Main {
 
         Configuration configure;
 
-        while (true){
-            try{
-                //user inputs for configuration
-                System.out.println("Enter total ticket count (must be over '0'): ");
+        while (true) {
+            try {
+                // User inputs for configuration
+                System.out.print("Enter total ticket count (must be over '0'): ");
                 int totalTickets = scanner.nextInt();
+                if (totalTickets <= 0) throw new IllegalArgumentException("Total ticket count must be greater than 0.");
 
-                System.out.println("Enter ticket release rate: ");
+                System.out.print("Enter ticket release rate: ");
                 int ticketReleaseRate = scanner.nextInt();
+                if (ticketReleaseRate <= 0) throw new IllegalArgumentException("Ticket release rate must be greater than 0.");
 
-                System.out.println("Enter customer retrieval rate: ");
+                System.out.print("Enter customer retrieval rate: ");
                 int customerRetrievalRate = scanner.nextInt();
+                if (customerRetrievalRate <= 0) throw new IllegalArgumentException("Customer retrieval rate must be greater than 0.");
 
                 System.out.print("Enter maximum ticket capacity: ");
                 int maxTicketCapacity = scanner.nextInt();
+                if (maxTicketCapacity <= 0) throw new IllegalArgumentException("Maximum ticket capacity must be greater than 0.");
 
-                configure = new Configuration(totalTickets,ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
+                configure = new Configuration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
                 break;
 
-            }catch(IllegalArgumentException e){
-                System.out.println("Error: "+ e.getMessage());
-                System.out.println("Try Again!");
-            }
+                } catch (Exception e) {
+                System.out.println("Error: Please enter a valid input. " + (e.getMessage() != null ? e.getMessage() : ""));
+                scanner.nextLine(); // Clear invalid input
+                }
 
+            System.out.println("Try Again!");
         }
+
+
+        // Save configuration to files
+        String textFileName = "configurations.txt";
+        configure.saveToTextFile(textFileName);
+
+        System.out.println("Do you want to save the configuration in a new JSON file?");
+        System.out.println("Type 'yes' to create a new JSON file or 'no' to append data to the existing JSON file.");
+        String jsonChoice = scanner.next();
+
+        String jsonFileName = "configurations.json";
+        boolean createNew = "yes".equalsIgnoreCase(jsonChoice);
+
+        configure.saveToJsonFile(jsonFileName, createNew);
+
+        System.out.println("Program completed successfully.");
+
 
         System.out.println(configure); // Print the configuration
 
