@@ -80,7 +80,7 @@ const appStyle = {
 };
 
 const statusStyle = {
-  color: 'green',
+  color: 'black',
   fontWeight: 'bold',
 };
 

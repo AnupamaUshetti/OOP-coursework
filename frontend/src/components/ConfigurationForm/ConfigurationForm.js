@@ -2,36 +2,64 @@ import React, { useState } from 'react';
 import './ConfigurationStyles.css'; // Import the CSS file
 
 const ConfigurationForm = ({ onSubmit }) => {
-  // State for input fields
+  const [vendorCount, setVendorCount] = useState(1); // Starts with one vendor
+  const [customerCount, setCustomerCount] = useState(1); // Starts with one customer
   const [config, setConfig] = useState({
     totalTickets: '',
     ticketReleaseRate: '',
-    customerRetrievalRate: '',
+    customerRetrievalRate: '', // Shared retrieval rate for all customers
     maxTicketCapacity: '',
   });
 
-  // Handle input changes
-  const handleChange = (e) => {
+  // Handle input changes for global configuration
+  const handleConfigChange = (e) => {
     const { name, value } = e.target;
     setConfig({ ...config, [name]: value });
+  };
+
+  // Increase vendor count
+  const addVendor = () => {
+    setVendorCount(vendorCount + 1);
+  };
+
+  // Decrease vendor count (minimum of 1)
+  const removeVendor = () => {
+    if (vendorCount > 1) {
+      setVendorCount(vendorCount - 1);
+    }
+  };
+
+  // Increase customer count
+  const addCustomer = () => {
+    setCustomerCount(customerCount + 1);
+  };
+
+  // Decrease customer count (minimum of 1)
+  const removeCustomer = () => {
+    if (customerCount > 1) {
+      setCustomerCount(customerCount - 1);
+    }
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(config); // Pass configuration to the parent component
+    const vendors = Array(vendorCount).fill({ ticketReleaseRate: config.ticketReleaseRate });
+    const customers = Array(customerCount).fill({ customerRetrievalRate: config.customerRetrievalRate });
+    onSubmit({ ...config, vendors, customers });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="configuration-form">
+    <form onSubmit={handleSubmit} className="form-container">
       <h2>Configuration Settings</h2>
       <label>
-        Total Tickets Amount:
+        Total amount of Tickets:
         <input
           type="number"
           name="totalTickets"
           value={config.totalTickets}
-          onChange={handleChange}
+          onChange={handleConfigChange}
+          className="input-field"
           required
         />
       </label>
@@ -41,7 +69,8 @@ const ConfigurationForm = ({ onSubmit }) => {
           type="number"
           name="ticketReleaseRate"
           value={config.ticketReleaseRate}
-          onChange={handleChange}
+          onChange={handleConfigChange}
+          className="input-field"
           required
         />
       </label>
@@ -51,25 +80,45 @@ const ConfigurationForm = ({ onSubmit }) => {
           type="number"
           name="customerRetrievalRate"
           value={config.customerRetrievalRate}
-          onChange={handleChange}
+          onChange={handleConfigChange}
+          className="input-field"
           required
         />
       </label>
       <label>
-        Max Ticket Capacity:
+        Maximum Ticket Capacity:
         <input
           type="number"
           name="maxTicketCapacity"
           value={config.maxTicketCapacity}
-          onChange={handleChange}
+          onChange={handleConfigChange}
+          className="input-field"
           required
         />
       </label>
-      <button type="configure">Configure</button>
+
+      <h3>Add Vendors</h3>
+      <div className="count">
+        <button type="button" onClick={addVendor} className="add-button">+</button>
+        <span>{vendorCount} Vendors</span>
+        <button type="button" onClick={removeVendor} className="remove-button">-</button>
+      </div>
+
+      <h3>Add Customers</h3>
+      <div className="count">
+        <button type="button" onClick={addCustomer} className="add-button">+</button>
+        <span>{customerCount} Customers</span>
+        <button type="button" onClick={removeCustomer} className="remove-button"> - </button>
+      </div>
+      <br></br>
+      <button type="submit" className="configure-button">
+       Configure
+      </button>
     </form>
   );
 };
 
 export default ConfigurationForm;
+
 
 
