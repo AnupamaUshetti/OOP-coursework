@@ -5,3 +5,7 @@ Configuration } Total Tickets: 20 Release rate: 2 Retrieval rate: 1 Maximum Capa
 Configuration } Total Tickets: 20, Release rate: 4, Retrieval rate: 2, Maximum Capacity: 22
 Configuration } Total Tickets: 20, Release rate: 3, Retrieval rate: 2, Maximum Capacity: 22
 Configuration } Total Tickets: -2, Release rate: -2, Retrieval rate: 2, Maximum Capacity: 1
+Configuration } Total Tickets: 10, Release rate: 3, Retrieval rate: 2, Maximum Capacity: 12
+Configuration } Total Tickets: 500, Release rate: 20, Retrieval rate: 40, Maximum Capacity: 1000
+Configuration } Total Tickets: 10, Release rate: 2, Retrieval rate: 1, Maximum Capacity: 12
+Configuration } Total Tickets: 20, Release rate: 2, Retrieval rate: 4, Maximum Capacity: 21

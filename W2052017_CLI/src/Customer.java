@@ -1,3 +1,4 @@
+//Customer class that holding customer threads
 public class Customer implements Runnable {
     private TicketPool ticketPool;
     private int customerRetrievalRate;
@@ -12,6 +13,7 @@ public class Customer implements Runnable {
     public void run() {
         while (true) {
             ticketPool.removeTickets(customerRetrievalRate);
+            //stopping customer threads
             if (ticketPool.getCurrentCount() == 0) {
                 System.out.println("All tickets sold out.(Customer thread stopping!)");
                 break;

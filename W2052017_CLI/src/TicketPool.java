@@ -1,3 +1,4 @@
+//Ticket Pool class that holding addTicket and removeTicket methods.
 public class TicketPool {
     private int ticketCount; //max tickets that vendor have
     private int maxTicketCapacity; //max capacity
@@ -18,7 +19,7 @@ public class TicketPool {
         return ticketCount;
     }
 
-
+    //addTicket method
     public synchronized void addTickets(int ticketReleaseRate){
         while(currentCount==maxTicketCapacity){
             try{
@@ -56,7 +57,7 @@ public class TicketPool {
         notifyAll(); //notify customers
     }
 
-
+    //removeTicket method
     public synchronized void removeTickets(int customerRetrievalRate) {
         while (currentCount < customerRetrievalRate) {
             try {

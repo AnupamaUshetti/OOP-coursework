@@ -1,3 +1,4 @@
+//Vendor class holding vendor threads
 public class Vendor implements Runnable{
     private TicketPool ticketPool;
     private int ticketReleaseRate;
